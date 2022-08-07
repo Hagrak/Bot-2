@@ -1,37 +1,54 @@
 HELP = """
-help - напечатать справку по программе.
-add - добавить задачу в список (название задачи запрашиваем у пользователя).
-show - напечатать все добавленные задачи.
-exit - выход. """
+Помощь - напечатать справку по программе.
 
-today = []
-tommorow = []
-other = []
+Добавить - добавить задачу в список.
+
+Показать - Показать добавленные задачи.
+
+Случайно - добавляет случайную задачу на сегодня.
+
+Выход - выход. 
+"""
+
+random_task = "Сходить в магазин"
+
+tasks = {
+  
+}
 
 run = True
 
 while run:
   command = input("Введите команду: ")
-  if command == "help":
+  if command == "Помощь":
     print(HELP) 
-  elif command == "show":
-    print(today, tommorow, other)
-  elif command == "add":
-    task = input("Введите название задачи: ")
-    data = input("Введите дату задачи: ")
-    if data == ("Сегодня"):
-      today.append(task)
-      print("Задача добавлена")
-    elif data == ("Завтра"):
-      task.append(task)
-      print("Задача добавлена")
-    elif data == ("В другой день"):
-      data.append(task)
-      print("Задача добавлена")
+  elif command == "Показать":
+    data = input("Введите дату, для просмотра задач: ")
+    if data in tasks:
+     for task in tasks[data]:
+       print("- ", task)
     else:
-      print("Неизвестная команда, попробуйте еще раз.")
+      print("Задач на эту дату не найдено")
+    
+  elif command == "Добавить":
+    data = input("Введите дату задачи: ")
+    task = input("Введите название задачи: ")
+    if data in tasks:
+      tasks[data].append(task)
+    else:
+      tasks[data] = []
+      tasks[data].append(task)
+    print("Задача", task, "добавлена на", data)  
+
+  elif command == "Случайно":
+    if "Сегодня" in tasks:
+      tasks["Сегодня"].append(random_task)
+    else:
+      tasks["Сегодня"] = []
+      tasks["Сегодня"].append(random_task)
+      print("Задача", random_task, "добавлена на сегодня.")
       
-  elif command ==  "exit":
+  elif command == "Выход": #Последняя команда
     print("Спасибо за использование! До свидания!")
     break
   else: 
